@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-public class SearchActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity {
 
     private ImageView imageView;
 
@@ -21,19 +21,11 @@ public class SearchActivity extends AppCompatActivity {
 
         Intent intento = getIntent();
         Bundle b = intento.getExtras();
+        Movie m = (Movie) b.getSerializable("movie");
 
         ApiHelper api = new ApiHelper();
 
-        try {
-            api.getMovieById(this,"408");
-        } catch (Exception e) {
-
-        }
-        /*Toast toast1 =
-                    Toast.makeText(getApplicationContext(),
-                            "No se ha encontrado la película", Toast.LENGTH_SHORT);
-
-            toast1.show();*/
+        loadMovie(m);
     }
 
     void loadMovie(Movie movie) {

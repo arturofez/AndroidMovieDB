@@ -11,7 +11,7 @@
         tools:layout="@layout/activity_main" />
     <activity
         android:id="@+id/searchActivity"
-        android:name="com.example.androidmoviedb.SearchActivity"
+        android:name="com.example.androidmoviedb.MovieActivity"
         android:label="activity_search"
         tools:layout="@layout/activity_search" />
 </navigation>

@@ -1,24 +1,28 @@
 package com.example.androidmoviedb;
 
-public class Movie {
+import java.io.Serializable;
 
-    private int id;
+public class Movie implements Serializable {
+
+    private String id;
     private String title;
     private String poster_path;
     private String overview;
 
-    public Movie(int id, String title, String poster_path, String overview) {
+    public Movie(){}
+
+    public Movie(String id, String title, String poster_path, String overview) {
         this.id = id;
         this.title = title;
         this.poster_path = poster_path;
         this.overview = overview;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
