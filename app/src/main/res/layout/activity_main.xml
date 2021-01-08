@@ -63,4 +63,15 @@
         </GridView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/favoritesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        android:onClick="onClick"
+        app:maxImageSize="30dp"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

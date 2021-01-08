@@ -11,6 +11,9 @@ public class Movie implements Serializable {
 
     public Movie(){}
 
+    /*
+     * Crea un objeto película con su título, descripción, id en themoviedb.com y url del poster
+     */
     public Movie(String id, String title, String poster_path, String overview) {
         this.id = id;
         this.title = title;

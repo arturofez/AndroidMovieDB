@@ -24,6 +24,9 @@ public class ApiHelper {
         client = new OkHttpClient();
     }
 
+    /*
+     * Busca películas por título
+     */
     public void search(MainActivity a, String movie) throws IOException {
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY
                 + "&language=" + Locale.getDefault().toLanguageTag()
@@ -32,8 +35,6 @@ public class ApiHelper {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-
-        //Response response = client.newCall(request).execute();
 
         client.newCall(request).enqueue(new Callback() {
             @Override

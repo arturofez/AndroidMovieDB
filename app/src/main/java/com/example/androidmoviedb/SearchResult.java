@@ -11,6 +11,9 @@ public class SearchResult {
 
     public SearchResult() {}
 
+    /*
+     * Crea un objeto con los resultados en json deserializado de la búsqueda de películas
+     */
     public SearchResult(int page, List<Movie> results, int total_pages, int total_results) {
         this.page = page;
         this.results = results;

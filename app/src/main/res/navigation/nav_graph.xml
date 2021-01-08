@@ -13,5 +13,10 @@
         android:id="@+id/searchActivity"
         android:name="com.example.androidmoviedb.MovieActivity"
         android:label="activity_search"
-        tools:layout="@layout/activity_search" />
+        tools:layout="@layout/activity_movie" />
+    <activity
+        android:id="@+id/favoritesActivity"
+        android:name="com.example.androidmoviedb.FavoritesActivity"
+        android:label="activity_favorites"
+        tools:layout="@layout/activity_favorites" />
 </navigation>

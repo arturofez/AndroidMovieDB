@@ -8,4 +8,10 @@
     <string name="errorNotFound">Not found</string>
     <string name="noResults">No results</string>
     <string name="error">Error</string>
+    <string name="favorites">Favorites</string>
+    <string name="noFavs">You don\'t have any favorite movie</string>
+    <string name="ok">OK</string>
+    <string name="back">Back</string>
+    <string name="movie">Movie</string>
+    <string name="favorite">Favorite</string>
 </resources>

@@ -27,9 +27,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return st;
     }
 
+    /*
+     * Crea la base de datos SQLite
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Movies (id INT PRIMARY KEY, title TEXT, overview TEXT, poster TEXT)");
+        db.execSQL("CREATE TABLE Movies (id TEXT PRIMARY KEY, title TEXT, overview TEXT, poster TEXT)");
     }
 
     @Override
@@ -38,29 +41,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /*
+     * Añade una película a la base de datos
+     */
     public boolean add(Movie movie) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = db.query("Movie",
-                new String[]{"Id", "Title", "Overview", "Poster"},
+        Cursor cursor = db.query("Movies",
+                new String[]{"id", "title", "overview", "poster"},
                 "Id LIKE ?",
                 new String[]{"%"+movie.getId()+"%"},null,null,null,null);
 
         ContentValues values = new ContentValues();
-        values.put("Id", movie.getId());
-        values.put("Title", movie.getTitle());
-        values.put("Overview", movie.getOverview());
-        values.put("Poster", movie.getPoster_path());
+        values.put("id", movie.getId());
+        values.put("title", movie.getTitle());
+        values.put("overview", movie.getOverview());
+        values.put("poster", movie.getPoster_path());
 
         boolean updated = false;
 
         if(!cursor.moveToFirst()) {
-            //Not in database -> insert
+            // No en database -> insert
             db.insert("Movies",null, values);
-
         } else {
-            // Already in database -> update
-            db.update("Movies", values, "Id" + "=?", new String[] {movie.getId()});
+            // Ya está en database -> update
+            db.update("Movies", values, "id" + "=?", new String[] {movie.getId()});
             updated = true;
         }
 
@@ -68,41 +73,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return updated;
     }
 
+    /*
+     * Recupera una película de la base de datos por su id
+     */
     public Movie getById(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.query("Movies",
-                new String[]{"Id", "Title","Overview", "Poster"},
+                new String[]{"id", "title","overview", "poster"},
                 "Id LIKE ?",
                 new String[]{id},null,null,null,null);
 
-        Movie movie = new Movie();
+        Movie movie = null;
         if(cursor.moveToFirst()){
-            movie.setId(cursor.getString(cursor.getColumnIndex("Id")));
-            movie.setTitle(cursor.getString(cursor.getColumnIndex("Title")));
-            movie.setOverview(cursor.getString(cursor.getColumnIndex("Overview")));
-            movie.setPoster_path(cursor.getString(cursor.getColumnIndex("Poster")));
+            movie = new Movie();
+            movie.setId(cursor.getString(cursor.getColumnIndex("id")));
+            movie.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+            movie.setOverview(cursor.getString(cursor.getColumnIndex("overview")));
+            movie.setPoster_path(cursor.getString(cursor.getColumnIndex("poster")));
         }
         cursor.close();
         return movie;
     }
 
+    /*
+     * Elimina una película de la base de datos si existe
+     */
+    public boolean delete(Movie movie) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query("Movies",
+                new String[]{"id", "title","overview", "poster"},
+                "Id LIKE ?",
+                new String[]{movie.getId()},null,null,null,null);
+
+        boolean deleted = false;
+
+        if(!cursor.moveToFirst()) {
+            //Not in database -> nothing
+        } else {
+            // Already in database -> delete
+            db.delete("Movies", "id" + "=?", new String[] {movie.getId()});
+            deleted = true;
+        }
+
+        db.close();
+        return deleted;
+    }
+
+    /*
+     * Obtiene todas las películas de la base de datos
+     */
     public List<Movie> getAll() {
         SQLiteDatabase db = this.getWritableDatabase();
 
         List<Movie> movieList = new ArrayList<>();
 
-        Cursor cursor = db.query("Movies",
-                new String[]{"Id", "Title","Overview", "Poster"},
-               null,null,null,null,null,null);
+        Cursor cursor = db.query("Movies",null,null,null,null,null,null,null);
 
         if(cursor.moveToFirst()){
             do{
                 Movie movie = new Movie();
-                movie.setId(cursor.getString(cursor.getColumnIndex("Id")));
-                movie.setTitle(cursor.getString(cursor.getColumnIndex("Title")));
-                movie.setOverview(cursor.getString(cursor.getColumnIndex("Overview")));
-                movie.setPoster_path(cursor.getString(cursor.getColumnIndex("Poster")));
+                movie.setId(cursor.getString(cursor.getColumnIndex("id")));
+                movie.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+                movie.setOverview(cursor.getString(cursor.getColumnIndex("overview")));
+                movie.setPoster_path(cursor.getString(cursor.getColumnIndex("poster")));
                 movieList.add(movie);
             } while(cursor.moveToNext());
         }

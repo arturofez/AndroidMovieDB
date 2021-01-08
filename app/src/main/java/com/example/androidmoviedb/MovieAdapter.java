@@ -18,10 +18,13 @@ import java.util.ArrayList;
 
 public class MovieAdapter extends ArrayAdapter<Movie> {
 
-    public MovieAdapter(Context context, ArrayList<Movie> users){
-        super(context, 0, users);
+    public MovieAdapter(Context context, ArrayList<Movie> movies){
+        super(context, 0, movies);
     }
 
+    /*
+     * Adapter personalizado para mostrar las películas en un GridView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         Movie movie = getItem(position);
