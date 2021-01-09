@@ -40,9 +40,8 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         if(movie.getPoster_path() != null){
             Picasso.get().load("https://image.tmdb.org/t/p/w200/" + movie.getPoster_path()).into(poster);
         } else {
-            Picasso.get().load("https://piotrkowalski.pw/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png")
+            Picasso.get().load(R.drawable.notfound)
                     .resize(200, 300)
-                    .centerCrop()
                     .into(poster);
         }
 

@@ -66,6 +66,10 @@ public class MovieActivity extends AppCompatActivity {
         overview.setText(movie.getOverview());
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        Picasso.get().load("https://image.tmdb.org/t/p/w200/" + movie.getPoster_path()).into(imageView);
+        if(movie.getPoster_path() != null){
+            Picasso.get().load("https://image.tmdb.org/t/p/w200/" + movie.getPoster_path()).into(imageView);
+        } else {
+            Picasso.get().load(R.drawable.notfound).into(imageView);
+        }
     }
 }

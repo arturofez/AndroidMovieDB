@@ -1,5 +1,6 @@
 package com.example.androidmoviedb;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.GridView;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -53,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        if(view.getId() == R.id.buttonSearch) { // Botón buscar
+        if (view.getId() == R.id.buttonSearch) { // Botón buscar
             searchMovie();
-        } else if(view.getId() == R.id.favoritesButton){ // Botón favoritos
+        } else if (view.getId() == R.id.favoritesButton) { // Botón favoritos
             Intent intento = new Intent(getApplicationContext(), FavoritesActivity.class);
             startActivity(intento);
         }
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private void searchMovie() {
         movieAdapter.clear();
         ApiHelper api = new ApiHelper();
+
         try {
             api.search(this, searchInput.getText().toString().trim().toLowerCase());
         } catch (Exception e) {
@@ -77,11 +80,20 @@ public class MainActivity extends AppCompatActivity {
     /*
      * Carga los resultados de la búsqueda a la API
      */
-    void loadSearch(List<Movie> movieList) {
-        if(movieList.isEmpty()){
+    public void loadSearch(List<Movie> movieList) {
+        if (movieList.isEmpty()) {
             Toast.makeText(this, R.string.noResults, Toast.LENGTH_LONG).show(); //Si no hay resultados, se informa
         } else {
             movieAdapter.addAll(movieList);
+            hideKeyboard();
+        }
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if(view !=null){
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
