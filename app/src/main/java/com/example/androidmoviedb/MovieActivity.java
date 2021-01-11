@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
@@ -50,6 +51,7 @@ public class MovieActivity extends AppCompatActivity {
                     } else {
                         db.delete(m);
                     }
+                    favoriteNotice(isChecked);
                 }
             }
         });
@@ -58,7 +60,7 @@ public class MovieActivity extends AppCompatActivity {
     /*
      * Función que muestra los datos de la película
      */
-    void loadMovie(Movie movie) {
+    private void loadMovie(Movie movie) {
         TextView title = (TextView) findViewById(R.id.movieTitle);
         title.setText(movie.getTitle());
 
@@ -70,6 +72,14 @@ public class MovieActivity extends AppCompatActivity {
             Picasso.get().load("https://image.tmdb.org/t/p/w200/" + movie.getPoster_path()).into(imageView);
         } else {
             Picasso.get().load(R.drawable.notfound).into(imageView);
+        }
+    }
+
+    private void favoriteNotice(boolean fav){
+        if (fav){
+            Toast.makeText(this, R.string.markFav, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.unmarkFav, Toast.LENGTH_SHORT).show();
         }
     }
 }

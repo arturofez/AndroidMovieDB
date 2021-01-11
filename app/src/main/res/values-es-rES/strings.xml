@@ -8,4 +8,6 @@
     <string name="back">Atrás</string>
     <string name="movie">Película</string>
     <string name="favorite">Favorito</string>
+    <string name="markFav">Añadido a favoritos</string>
+    <string name="unmarkFav">Eliminado de favoritos</string>
 </resources>

@@ -14,4 +14,6 @@
     <string name="back">Back</string>
     <string name="movie">Movie</string>
     <string name="favorite">Favorite</string>
+    <string name="markFav">Added to favorites</string>
+    <string name="unmarkFav">Deleted from favorite</string>
 </resources>
